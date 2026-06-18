@@ -25,7 +25,7 @@ const Sidebar = () => {
           alt="MeetTrack Pro Logo" 
           width={180} 
           height={60} 
-          className="object-contain"
+          className="object-contain dark:bg-white dark:p-2 dark:rounded-xl"
           priority
         />
       </div>

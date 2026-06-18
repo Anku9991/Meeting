@@ -80,7 +80,7 @@ export default function MeetingQRPage({ params }: { params: Promise<{ id: string
               <ArrowLeft className="h-5 w-5" />
             </Button>
           </Link>
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Meeting QR Code</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Meeting QR Code</h2>
         </div>
       </div>
 
@@ -91,7 +91,7 @@ export default function MeetingQRPage({ params }: { params: Promise<{ id: string
             <CardDescription>Participants should scan this to mark attendance</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center">
-            <div className="bg-white p-4 rounded-xl shadow-sm border mb-6">
+            <div className="bg-card p-4 rounded-xl shadow-sm border mb-6">
               <QRCodeSVG 
                 id="qr-code-svg"
                 value={attendanceUrl} 
@@ -101,7 +101,7 @@ export default function MeetingQRPage({ params }: { params: Promise<{ id: string
               />
             </div>
             
-            <p className="text-sm text-gray-500 break-all mb-6 px-4">
+            <p className="text-sm text-muted-foreground break-all mb-6 px-4">
               {attendanceUrl}
             </p>
 
@@ -128,23 +128,23 @@ export default function MeetingQRPage({ params }: { params: Promise<{ id: string
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h4 className="text-sm font-medium text-gray-500">Title</h4>
+              <h4 className="text-sm font-medium text-muted-foreground">Title</h4>
               <p className="text-base font-semibold">{meeting.title}</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">Date & Time</h4>
+              <h4 className="text-sm font-medium text-muted-foreground">Date & Time</h4>
               <p className="text-base">{meeting.date} ({meeting.startTime} - {meeting.endTime})</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">Venue</h4>
+              <h4 className="text-sm font-medium text-muted-foreground">Venue</h4>
               <p className="text-base">{meeting.venue}</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">Category</h4>
+              <h4 className="text-sm font-medium text-muted-foreground">Category</h4>
               <p className="text-base">{meeting.category}</p>
             </div>
             <div className="pt-4 border-t border-gray-100">
-              <h4 className="text-sm font-medium text-gray-500 mb-2">Security Requirements</h4>
+              <h4 className="text-sm font-medium text-muted-foreground mb-2">Security Requirements</h4>
               <ul className="text-sm space-y-1">
                 <li className="flex items-center text-gray-700">
                   <span className={`w-2 h-2 rounded-full mr-2 ${meeting.requireLocation ? 'bg-green-500' : 'bg-gray-300'}`}></span>

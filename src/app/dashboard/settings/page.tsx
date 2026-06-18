@@ -6,7 +6,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Settings</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Settings</h2>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -23,7 +23,7 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Email Address</label>
               <Input type="email" placeholder="admin@example.com" disabled />
-              <p className="text-xs text-gray-500">Email cannot be changed here.</p>
+              <p className="text-xs text-muted-foreground">Email cannot be changed here.</p>
             </div>
             <Button>Save Changes</Button>
           </CardContent>

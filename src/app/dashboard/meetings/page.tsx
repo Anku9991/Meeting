@@ -29,7 +29,7 @@ export default function MeetingsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Meetings</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Meetings</h2>
         <Link href="/dashboard/meetings/new">
           <Button>
             <Plus className="mr-2 h-4 w-4" /> Create Meeting
@@ -47,12 +47,12 @@ export default function MeetingsPage() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : meetings.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               No meetings found. Create one to get started.
             </div>
           ) : (
             <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500">
+              <table className="w-full text-sm text-left text-muted-foreground">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
                     <th className="px-6 py-3">Title</th>
@@ -64,8 +64,8 @@ export default function MeetingsPage() {
                 </thead>
                 <tbody>
                   {meetings.map((meeting) => (
-                    <tr key={meeting.id} className="bg-white border-b hover:bg-gray-50">
-                      <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    <tr key={meeting.id} className="bg-card border-b hover:bg-gray-50">
+                      <td className="px-6 py-4 font-medium text-foreground whitespace-nowrap">
                         {meeting.title}
                       </td>
                       <td className="px-6 py-4">

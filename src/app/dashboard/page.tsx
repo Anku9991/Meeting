@@ -112,7 +112,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Overview</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Overview</h2>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -197,8 +197,8 @@ export default function DashboardPage() {
                 {recentMeetings.map((meeting) => (
                   <div key={meeting.id} className="flex items-center justify-between border-b pb-3 last:border-0">
                     <div>
-                      <p className="font-medium text-sm text-gray-900">{meeting.title}</p>
-                      <p className="text-xs text-gray-500">{meeting.date} at {meeting.startTime}</p>
+                      <p className="font-medium text-sm text-foreground">{meeting.title}</p>
+                      <p className="text-xs text-muted-foreground">{meeting.date} at {meeting.startTime}</p>
                     </div>
                     <Link href={`/dashboard/meetings`} className="text-xs font-medium text-primary hover:underline">
                       View

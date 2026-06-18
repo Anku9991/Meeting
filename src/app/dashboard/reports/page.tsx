@@ -113,7 +113,7 @@ export default function ReportsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Reports</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Reports</h2>
         <div className="flex space-x-2">
           <Button onClick={exportCSV} variant="outline">
             <Download className="mr-2 h-4 w-4" /> Export CSV
@@ -128,7 +128,7 @@ export default function ReportsPage() {
         <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
           <CardTitle>Attendance Records</CardTitle>
           <div className="flex items-center">
-            <Filter className="h-4 w-4 mr-2 text-gray-500" />
+            <Filter className="h-4 w-4 mr-2 text-muted-foreground" />
             <select 
               value={selectedMeeting}
               onChange={(e) => setSelectedMeeting(e.target.value)}
@@ -147,12 +147,12 @@ export default function ReportsPage() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : filteredAttendances.length === 0 ? (
-            <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-200 rounded-lg">
+            <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-gray-200 rounded-lg">
               No attendance records found.
             </div>
           ) : (
             <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500">
+              <table className="w-full text-sm text-left text-muted-foreground">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
                     <th className="px-6 py-3">Participant</th>
@@ -164,10 +164,10 @@ export default function ReportsPage() {
                 </thead>
                 <tbody>
                   {filteredAttendances.map((record) => (
-                    <tr key={record.id} className="bg-white border-b hover:bg-gray-50">
+                    <tr key={record.id} className="bg-card border-b hover:bg-gray-50">
                       <td className="px-6 py-4">
-                        <div className="font-medium text-gray-900">{record.guestName}</div>
-                        <div className="text-xs text-gray-500">{record.employeeId} • {record.department}</div>
+                        <div className="font-medium text-foreground">{record.guestName}</div>
+                        <div className="text-xs text-muted-foreground">{record.employeeId} • {record.department}</div>
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-700">
                         {getMeetingName(record.meetingId)}
@@ -182,7 +182,7 @@ export default function ReportsPage() {
                       </td>
                       <td className="px-6 py-4 text-center">
                         {record.signatureUrl ? (
-                          <div className="inline-block p-1 border rounded bg-white">
+                          <div className="inline-block p-1 border rounded bg-card">
                             <img src={record.signatureUrl} alt="Signature" className="h-8 object-contain" />
                           </div>
                         ) : (

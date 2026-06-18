@@ -61,7 +61,7 @@ export default function NewMeetingPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Create Meeting</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">Create Meeting</h2>
       </div>
 
       <Card>

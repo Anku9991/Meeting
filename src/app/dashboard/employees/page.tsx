@@ -79,7 +79,7 @@ export default function EmployeesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Employees</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground dark:text-white">Employees</h2>
         <div className="flex gap-2">
           <input 
             type="file" 
@@ -115,14 +115,14 @@ export default function EmployeesPage() {
         </CardHeader>
         <CardContent>
           {employees.length === 0 ? (
-            <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-lg flex flex-col items-center justify-center">
+            <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-lg flex flex-col items-center justify-center">
               <Users className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-4" />
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-100">No employees found</p>
+              <p className="text-lg font-medium text-foreground dark:text-gray-100">No employees found</p>
               <p className="text-sm">Click "Import CSV" to bulk add your team members.</p>
             </div>
           ) : (
             <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <table className="w-full text-sm text-left text-muted-foreground dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-300">
                   <tr>
                     <th className="px-6 py-3">Name</th>
@@ -133,8 +133,8 @@ export default function EmployeesPage() {
                 </thead>
                 <tbody>
                   {employees.map((emp) => (
-                    <tr key={emp.id} className="bg-white dark:bg-card border-b dark:border-gray-800">
-                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{emp.displayName}</td>
+                    <tr key={emp.id} className="bg-card dark:bg-card border-b dark:border-gray-800">
+                      <td className="px-6 py-4 font-medium text-foreground dark:text-white">{emp.displayName}</td>
                       <td className="px-6 py-4">{emp.employeeId}</td>
                       <td className="px-6 py-4">{emp.department}</td>
                       <td className="px-6 py-4">{emp.designation}</td>
