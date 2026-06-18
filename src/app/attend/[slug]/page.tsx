@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import SignatureCanvas from "react-signature-canvas";
 import { MapPin, Camera, CheckCircle, AlertCircle } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
+import Image from "next/image";
 
 export default function AttendancePortal({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
@@ -79,19 +80,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     setError("");
 
     try {
-      // 1. Check for duplicates based on email/employeeId
-      const q = query(
-        collection(db, "attendances"), 
-        where("meetingId", "==", meeting.id),
-        where("guestEmail", "==", formData.guestEmail)
-      );
-      const duplicateCheck = await getDocs(q);
-      
-      if (!duplicateCheck.empty) {
-        throw new Error("You have already checked in to this meeting.");
-      }
-
-      // 2. Upload Signature
+      // 1. Upload Signature
       const signatureDataUrl = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
       const signatureRef = ref(storage, `signatures/${meeting.id}/${uuidv4()}.png`);
       await uploadString(signatureRef, signatureDataUrl, 'data_url');
@@ -150,14 +139,21 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#0B2447]/5 to-[#C49A45]/10 py-8 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-md mx-auto space-y-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-primary mb-1">MeetTrack Pro</h1>
-          <p className="text-sm text-gray-500">Digital Attendance System</p>
+        <div className="flex justify-center mb-6">
+          <Image 
+            src="/logo.png" 
+            alt="MeetTrack Pro Logo" 
+            width={180} 
+            height={60} 
+            className="object-contain drop-shadow-md"
+            priority
+          />
         </div>
 
-        <Card className="shadow-lg border-t-4 border-t-primary">
+        <Card className="shadow-2xl border-0 overflow-hidden">
+          <div className="h-2 w-full bg-gradient-to-r from-[hsl(var(--color-navy))] to-[hsl(var(--color-gold))]"></div>
           <CardHeader className="bg-white border-b border-gray-100 pb-6">
             <CardTitle className="text-xl">{meeting?.title}</CardTitle>
             <CardDescription className="flex flex-col space-y-1 mt-2">
@@ -174,14 +170,14 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-3">
-                <Input required name="guestName" value={formData.guestName} onChange={handleChange} placeholder="Full Name" className="bg-gray-50" />
+                <Input required name="guestName" value={formData.guestName} onChange={handleChange} placeholder="Full Name" className="bg-gray-50/50 focus:bg-white transition-colors" />
                 <div className="grid grid-cols-2 gap-3">
-                  <Input required name="employeeId" value={formData.employeeId} onChange={handleChange} placeholder="Employee ID" className="bg-gray-50" />
-                  <Input required name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="bg-gray-50" />
+                  <Input required name="employeeId" value={formData.employeeId} onChange={handleChange} placeholder="Employee ID" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                  <Input required name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="bg-gray-50/50 focus:bg-white transition-colors" />
                 </div>
-                <Input required name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="bg-gray-50" />
-                <Input type="email" required name="guestEmail" value={formData.guestEmail} onChange={handleChange} placeholder="Email Address" className="bg-gray-50" />
-                <Input type="tel" name="guestPhone" value={formData.guestPhone} onChange={handleChange} placeholder="Mobile Number (Optional)" className="bg-gray-50" />
+                <Input required name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                <Input type="email" required name="guestEmail" value={formData.guestEmail} onChange={handleChange} placeholder="Email Address" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                <Input type="tel" name="guestPhone" value={formData.guestPhone} onChange={handleChange} placeholder="Mobile Number (Optional)" className="bg-gray-50/50 focus:bg-white transition-colors" />
               </div>
 
 
@@ -201,7 +197,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
                 </div>
               </div>
 
-              <Button type="submit" className="w-full h-12 text-lg mt-6" disabled={submitting}>
+              <Button type="submit" className="w-full h-12 text-md font-semibold bg-gradient-to-r from-[hsl(var(--color-navy))] to-[#123666] hover:opacity-90 transition-opacity shadow-md mt-6" disabled={submitting}>
                 {submitting ? "Submitting..." : "Submit Attendance"}
               </Button>
             </form>

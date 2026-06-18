@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -31,13 +32,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md shadow-lg border-t-4 border-t-primary">
-        <CardHeader className="text-center space-y-1">
-          <CardTitle className="text-2xl font-bold tracking-tight text-gray-900">
-            MeetTrack Pro
-          </CardTitle>
-          <CardDescription>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0B2447]/5 to-[#C49A45]/10 px-4">
+      <Card className="w-full max-w-md shadow-2xl border-0 overflow-hidden">
+        <div className="h-2 w-full bg-gradient-to-r from-[hsl(var(--color-navy))] to-[hsl(var(--color-gold))]"></div>
+        <CardHeader className="text-center space-y-4 pt-8">
+          <div className="flex justify-center">
+            <Image 
+              src="/logo.png" 
+              alt="MeetTrack Pro Logo" 
+              width={220} 
+              height={80} 
+              className="object-contain drop-shadow-sm"
+              priority
+            />
+          </div>
+          <CardDescription className="text-gray-500 font-medium">
             Enter your credentials to access the admin dashboard
           </CardDescription>
         </CardHeader>
@@ -75,7 +84,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full mt-6" disabled={loading}>
+            <Button type="submit" className="w-full mt-6 h-12 text-md font-semibold bg-gradient-to-r from-[hsl(var(--color-navy))] to-[#123666] hover:opacity-90 transition-opacity shadow-md" disabled={loading}>
               {loading ? "Signing in..." : "Sign in"}
             </Button>
           </form>

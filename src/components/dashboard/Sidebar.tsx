@@ -3,6 +3,7 @@ import { LayoutDashboard, Users, Calendar, Settings, LogOut, FileText } from "lu
 import { useAuth } from "@/contexts/AuthContext";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const Sidebar = () => {
   const { user, signOut } = useAuth();
@@ -17,9 +18,16 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen p-4">
-      <div className="flex items-center justify-center mb-8">
-        <h1 className="text-2xl font-bold text-primary">MeetTrack Pro</h1>
+    <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen p-4 shadow-sm">
+      <div className="flex items-center justify-center mb-8 pt-4">
+        <Image 
+          src="/logo.png" 
+          alt="MeetTrack Pro Logo" 
+          width={180} 
+          height={60} 
+          className="object-contain"
+          priority
+        />
       </div>
       
       <nav className="flex-1 space-y-2">
@@ -31,10 +39,10 @@ const Sidebar = () => {
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center px-4 py-3 rounded-lg transition-colors group text-sm font-medium",
+                "flex items-center px-4 py-3 rounded-lg transition-all duration-200 group text-sm font-medium",
                 isActive 
-                  ? "bg-primary text-primary-foreground" 
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  ? "bg-primary text-[hsl(var(--color-gold))] shadow-md" 
+                  : "text-gray-600 hover:bg-gray-50 hover:text-primary"
               )}
             >
               <Icon className="mr-3 h-5 w-5" />
