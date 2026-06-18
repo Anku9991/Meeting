@@ -34,8 +34,8 @@ export default function DashboardPage() {
         const todayStr = new Date().toISOString().split("T")[0];
         const upcomingMeetings = allMeetings.filter(m => m.date >= todayStr).length;
 
-        // Total expected participants (sum of expectedParticipants from all meetings)
-        const totalExpected = allMeetings.reduce((sum, m) => sum + (Number(m.expectedParticipants) || 0), 0);
+        // Total expected participants (sum of expectedParticipantCount from all meetings)
+        const totalExpected = allMeetings.reduce((sum, m) => sum + (Number(m.expectedParticipantCount) || 0), 0);
         const actualParticipants = allAttendances.length;
 
         const attendanceRate = totalExpected > 0 ? Math.round((actualParticipants / totalExpected) * 100) : 0;
