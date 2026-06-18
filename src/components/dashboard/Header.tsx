@@ -53,17 +53,17 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm sticky top-0 z-30">
+    <header className="flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-card/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm sticky top-0 z-30">
       <div className="flex items-center flex-1">
         <Button variant="ghost" size="icon" className="md:hidden mr-2">
           <Menu className="h-5 w-5" />
         </Button>
-        <div className="relative w-full max-w-md hidden md:flex">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <div className="relative w-full max-w-md hidden md:block">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
           <Input
             type="search"
             placeholder="Search meetings, employees..."
-            className="w-full bg-gray-50/50 hover:bg-gray-100/50 transition-colors focus:bg-white pl-10 border-gray-200 rounded-full shadow-inner"
+            className="w-full bg-gray-50/50 dark:bg-muted/50 hover:bg-gray-100/50 dark:hover:bg-muted focus:bg-white dark:focus:bg-background pl-10 border-gray-200 dark:border-gray-700 rounded-full shadow-inner"
           />
         </div>
       </div>
@@ -90,19 +90,19 @@ const Header = () => {
               <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
             )}
           </PopoverTrigger>
-          <PopoverContent align="end" className="w-80 p-0 shadow-xl">
-            <div className="p-4 border-b border-gray-100 bg-gray-50/50 rounded-t-xl">
-              <h4 className="font-semibold text-sm text-gray-900">Notifications</h4>
+          <PopoverContent align="end" className="w-80 p-0 shadow-xl dark:border-gray-800">
+            <div className="p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 rounded-t-xl">
+              <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100">Notifications</h4>
             </div>
             <div className="max-h-[300px] overflow-y-auto">
               {notifications.length > 0 ? (
-                notifications.map((notif) => (
-                  <div key={notif.id} className="p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors flex items-start gap-3">
-                    <div className="mt-0.5 bg-green-100 p-1.5 rounded-full text-green-600">
+                notifications.map((notif: any) => (
+                  <div key={notif.id} className="p-4 border-b border-gray-50 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50 transition-colors flex items-start gap-3">
+                    <div className="mt-0.5 bg-green-100 dark:bg-green-900 p-1.5 rounded-full text-green-600 dark:text-green-400">
                       <UserCheck className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         {notif.guestName} <span className="font-normal text-gray-500">checked in</span>
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
