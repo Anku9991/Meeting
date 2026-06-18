@@ -62,13 +62,11 @@ const Header = () => {
       </div>
       <div className="flex items-center space-x-4">
         <Popover onOpenChange={handleOpenChange}>
-          <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative hover:bg-primary/5 transition-colors rounded-full">
-              <Bell className="h-5 w-5 text-gray-600" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
-              )}
-            </Button>
+          <PopoverTrigger className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-9 w-9 relative hover:bg-primary/5 rounded-full">
+            <Bell className="h-5 w-5 text-gray-600" />
+            {unreadCount > 0 && (
+              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+            )}
           </PopoverTrigger>
           <PopoverContent align="end" className="w-80 p-0 shadow-xl">
             <div className="p-4 border-b border-gray-100 bg-gray-50/50 rounded-t-xl">
