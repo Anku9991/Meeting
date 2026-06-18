@@ -18,7 +18,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen p-4 shadow-sm">
+    <div className="flex flex-col w-64 bg-white dark:bg-card border-r border-gray-200 dark:border-gray-800 min-h-screen p-4 shadow-sm">
       <div className="flex items-center justify-center mb-8 pt-4">
         <Image 
           src="/logo.png" 
@@ -41,8 +41,8 @@ const Sidebar = () => {
               className={cn(
                 "flex items-center px-4 py-3 rounded-lg transition-all duration-200 group text-sm font-medium",
                 isActive 
-                  ? "bg-primary text-[hsl(var(--color-gold))] shadow-md" 
-                  : "text-gray-600 hover:bg-gray-50 hover:text-primary"
+                  ? "bg-primary text-white shadow-md dark:bg-primary dark:text-white" 
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white"
               )}
             >
               <Icon className="mr-3 h-5 w-5" />
@@ -52,9 +52,9 @@ const Sidebar = () => {
         })}
       </nav>
 
-      <div className="mt-auto pt-4 border-t border-gray-200">
+      <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800">
         <div className="px-4 py-3">
-          <p className="text-sm font-medium text-gray-900 truncate">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
             {user?.displayName || "Admin User"}
           </p>
           <p className="text-xs text-gray-500 truncate">{user?.email}</p>
