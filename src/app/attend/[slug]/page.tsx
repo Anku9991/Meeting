@@ -80,17 +80,14 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     setError("");
 
     try {
-      // 1. Upload Signature
+      // Get Signature as Base64 string
       const signatureDataUrl = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
-      const signatureRef = ref(storage, `signatures/${meeting.id}/${uuidv4()}.png`);
-      await uploadString(signatureRef, signatureDataUrl, 'data_url');
-      const signatureUrl = await getDownloadURL(signatureRef);
 
-      // 3. Save Attendance Record
+      // Save Attendance Record directly with base64 signature
       const attendanceData = {
         meetingId: meeting.id,
         ...formData,
-        signatureUrl,
+        signatureUrl: signatureDataUrl,
         latitude: location?.latitude || null,
         longitude: location?.longitude || null,
         deviceInfo: navigator.userAgent,
