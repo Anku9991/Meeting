@@ -42,10 +42,6 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
         const data = await getMeetingBySlug(slug);
         if (data) {
           setMeeting(data);
-          
-          if (data.requireLocation) {
-            requestLocation();
-          }
         } else {
           setError("Meeting not found or link is invalid.");
         }
@@ -62,29 +58,6 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     }
   }, [slug]);
 
-  const requestLocation = () => {
-    setGettingLocation(true);
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          setGettingLocation(false);
-        },
-        (err) => {
-          console.error("Geolocation error:", err);
-          setError("Location access is required for this meeting. Please enable it.");
-          setGettingLocation(false);
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by your browser.");
-      setGettingLocation(false);
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -99,11 +72,6 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     
     if (sigCanvas.current?.isEmpty()) {
       alert("Please provide your digital signature.");
-      return;
-    }
-
-    if (meeting.requireLocation && !location) {
-      alert("Location is required but hasn't been captured.");
       return;
     }
 
@@ -216,20 +184,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
                 <Input type="tel" name="guestPhone" value={formData.guestPhone} onChange={handleChange} placeholder="Mobile Number (Optional)" className="bg-gray-50" />
               </div>
 
-              {meeting?.requireLocation && (
-                <div className="pt-2">
-                  <p className="text-sm font-medium mb-2 text-gray-700">Location Verification</p>
-                  <div className={`p-3 rounded-md border text-sm flex items-center ${location ? 'bg-green-50 border-green-200 text-green-700' : 'bg-amber-50 border-amber-200 text-amber-700'}`}>
-                    {gettingLocation ? (
-                      <span className="flex items-center"><div className="animate-spin rounded-full h-4 w-4 border-b-2 border-amber-700 mr-2"></div> Capturing location...</span>
-                    ) : location ? (
-                      <span className="flex items-center"><CheckCircle className="h-4 w-4 mr-2" /> Verified ({location.latitude.toFixed(4)}, {location.longitude.toFixed(4)})</span>
-                    ) : (
-                      <span className="flex items-center"><AlertCircle className="h-4 w-4 mr-2" /> Required</span>
-                    )}
-                  </div>
-                </div>
-              )}
+
 
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-2">
@@ -246,7 +201,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
                 </div>
               </div>
 
-              <Button type="submit" className="w-full h-12 text-lg mt-6" disabled={submitting || (meeting?.requireLocation && !location)}>
+              <Button type="submit" className="w-full h-12 text-lg mt-6" disabled={submitting}>
                 {submitting ? "Submitting..." : "Submit Attendance"}
               </Button>
             </form>
