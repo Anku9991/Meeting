@@ -8,6 +8,7 @@ import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import SignatureCanvas from "react-signature-canvas";
 import { MapPin, Camera, CheckCircle, AlertCircle } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
@@ -72,7 +73,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     if (!meeting || !meeting.id) return;
     
     if (sigCanvas.current?.isEmpty()) {
-      alert("Please provide your digital signature.");
+      toast.error("Please provide your digital signature.");
       return;
     }
 

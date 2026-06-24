@@ -5,8 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UserPlus, UploadCloud, Users, CheckCircle } from "lucide-react";
 import Papa from "papaparse";
+import { toast } from "sonner";
 import { collection, addDoc, getDocs, writeBatch, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { EmptyState } from "@/components/ui/custom/empty-state";
+import { LoadingSkeleton } from "@/components/ui/custom/loading-skeleton";
 
 export default function EmployeesPage() {
   const [employees, setEmployees] = useState<any[]>([]);
@@ -49,6 +52,7 @@ export default function EmployeesPage() {
           if (count > 0) {
             await batch.commit();
             setSuccessMsg(`Successfully imported ${count} employees!`);
+            toast.success(`Successfully imported ${count} employees!`);
             // Update local state temporarily for UX
             setEmployees(results.data.map((row: any) => ({
               id: Math.random().toString(),
@@ -58,11 +62,11 @@ export default function EmployeesPage() {
               designation: row["Designation"] || row["designation"],
             })));
           } else {
-            alert("No valid employee data found in CSV. Please ensure you have headers like 'Name', 'Department', etc.");
+            toast.error("No valid employee data found in CSV. Please ensure headers are correct.");
           }
         } catch (error) {
           console.error("Error importing CSV:", error);
-          alert("Failed to import CSV");
+          toast.error("Failed to import CSV");
         } finally {
           setLoading(false);
           if (fileInputRef.current) fileInputRef.current.value = "";
@@ -70,7 +74,7 @@ export default function EmployeesPage() {
       },
       error: (error) => {
         console.error("PapaParse error:", error);
-        alert("Failed to parse CSV file");
+        toast.error("Failed to parse CSV file");
         setLoading(false);
       }
     });
@@ -114,12 +118,14 @@ export default function EmployeesPage() {
           <CardTitle>Employee Directory</CardTitle>
         </CardHeader>
         <CardContent>
-          {employees.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-lg flex flex-col items-center justify-center">
-              <Users className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-4" />
-              <p className="text-lg font-medium text-foreground dark:text-gray-100">No employees found</p>
-              <p className="text-sm">Click "Import CSV" to bulk add your team members.</p>
-            </div>
+          {loading ? (
+            <LoadingSkeleton rows={5} />
+          ) : employees.length === 0 ? (
+            <EmptyState 
+              icon={Users} 
+              title="No employees found" 
+              description="Import your employees using a CSV file to get started."
+            />
           ) : (
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-left text-muted-foreground dark:text-gray-400">

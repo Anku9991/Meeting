@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Download, FileText, Filter } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { EmptyState } from "@/components/ui/custom/empty-state";
+import { LoadingSkeleton } from "@/components/ui/custom/loading-skeleton";
 
 interface AttendanceRecord {
   id: string;
@@ -141,15 +143,17 @@ export default function ReportsPage() {
             </select>
           </div>
         </CardHeader>
-        <CardContent className="pt-6">
+        <CardContent className="p-0">
           {loading ? (
-             <div className="flex justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="p-6">
+              <LoadingSkeleton rows={5} />
             </div>
           ) : filteredAttendances.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-gray-200 rounded-lg">
-              No attendance records found.
-            </div>
+            <EmptyState 
+              icon={FileText} 
+              title="No records found" 
+              description="There are no attendance records for the selected filters."
+            />
           ) : (
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-left text-muted-foreground">

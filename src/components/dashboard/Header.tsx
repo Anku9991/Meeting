@@ -13,12 +13,14 @@ import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { formatDistanceToNow } from "date-fns";
 import { useTheme } from "next-themes";
+import { useSidebarStore } from "@/store/useSidebarStore";
 
 const Header = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const toggleSidebar = useSidebarStore((state) => state.toggle);
 
   useEffect(() => {
     setMounted(true);
@@ -55,7 +57,7 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white/80 dark:bg-card/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm sticky top-0 z-30">
       <div className="flex items-center flex-1">
-        <Button variant="ghost" size="icon" className="md:hidden mr-2">
+        <Button variant="ghost" size="icon" className="md:hidden mr-2" onClick={toggleSidebar}>
           <Menu className="h-5 w-5" />
         </Button>
         <div className="relative w-full max-w-md hidden md:block">

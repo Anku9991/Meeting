@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { getMeetings, deleteMeeting, Meeting } from "@/lib/services/meetings";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Edit, Trash2, QrCode } from "lucide-react";
+import { Plus, Edit, Trash2, QrCode, Calendar } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { toast } from "sonner";
+import { EmptyState } from "@/components/ui/custom/empty-state";
+import { LoadingSkeleton } from "@/components/ui/custom/loading-skeleton";
 
 export default function MeetingsPage() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
@@ -31,9 +34,10 @@ export default function MeetingsPage() {
       try {
         await deleteMeeting(id);
         setMeetings(prev => prev.filter(m => m.id !== id));
+        toast.success("Meeting deleted successfully");
       } catch (error) {
         console.error("Error deleting meeting:", error);
-        alert("Failed to delete meeting");
+        toast.error("Failed to delete meeting");
       }
     }
   };
@@ -51,17 +55,22 @@ export default function MeetingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Scheduled Meetings</CardTitle>
+          <CardTitle>All Meetings</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="flex justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            </div>
+            <LoadingSkeleton rows={5} />
           ) : meetings.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No meetings found. Create one to get started.
-            </div>
+            <EmptyState 
+              icon={Calendar} 
+              title="No meetings found" 
+              description="Get started by creating your first meeting to track attendance."
+              action={
+                <Link href="/dashboard/meetings/new">
+                  <Button><Plus className="mr-2 h-4 w-4" /> Create Meeting</Button>
+                </Link>
+              }
+            />
           ) : (
             <div className="relative overflow-x-auto">
               <table className="w-full text-sm text-left text-muted-foreground">

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { Download, Share2, Printer, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function MeetingQRPage({ params }: { params: Promise<{ id: string }> }) {
   // Extract id from the resolved params promise
@@ -114,7 +115,7 @@ export default function MeetingQRPage({ params }: { params: Promise<{ id: string
               </Button>
               <Button variant="outline" size="sm" onClick={() => {
                 navigator.clipboard.writeText(attendanceUrl);
-                alert("Link copied to clipboard!");
+                toast.success("Link copied to clipboard!");
               }}>
                 <Share2 className="h-4 w-4 mr-2" /> Copy Link
               </Button>

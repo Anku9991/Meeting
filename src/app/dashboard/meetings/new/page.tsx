@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
 
 export default function NewMeetingPage() {
   const router = useRouter();
@@ -48,11 +49,12 @@ export default function NewMeetingPage() {
         expectedParticipantCount: Number(formData.expectedParticipantCount),
       });
       
+      toast.success("Meeting created successfully");
       // Redirect to QR code page
       router.push(`/dashboard/meetings/${meetingId}/qr`);
     } catch (error) {
       console.error("Error creating meeting:", error);
-      alert("Failed to create meeting.");
+      toast.error("Failed to create meeting.");
     } finally {
       setLoading(false);
     }

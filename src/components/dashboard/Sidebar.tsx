@@ -4,10 +4,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useSidebarStore } from "@/store/useSidebarStore";
 
 const Sidebar = () => {
   const { user, signOut } = useAuth();
   const pathname = usePathname();
+  const { isOpen, setIsOpen } = useSidebarStore();
 
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -18,8 +20,20 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="flex flex-col w-64 bg-white dark:bg-card border-r border-gray-200 dark:border-gray-800 min-h-screen p-4 shadow-sm">
-      <div className="flex items-center justify-center mb-8 pt-4">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden" 
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      <div className={cn(
+        "fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-white dark:bg-card border-r border-gray-200 dark:border-gray-800 shadow-xl md:shadow-sm transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        <div className="flex items-center justify-center mb-8 pt-4">
         <Image 
           src="/logo.png" 
           alt="MeetTrack Pro Logo" 
@@ -38,6 +52,7 @@ const Sidebar = () => {
             <Link
               key={item.name}
               href={item.href}
+              onClick={() => setIsOpen(false)}
               className={cn(
                 "flex items-center px-4 py-3 rounded-lg transition-all duration-200 group text-sm font-medium",
                 isActive 
@@ -68,6 +83,7 @@ const Sidebar = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 

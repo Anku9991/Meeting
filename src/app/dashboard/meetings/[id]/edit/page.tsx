@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
 
 export default function EditMeetingPage() {
   const router = useRouter();
@@ -75,11 +76,12 @@ export default function EditMeetingPage() {
         expectedParticipantCount: Number(formData.expectedParticipantCount),
       });
       
+      toast.success("Meeting updated successfully");
       // Redirect to meetings list
       router.push(`/dashboard/meetings`);
     } catch (error) {
       console.error("Error updating meeting:", error);
-      alert("Failed to update meeting.");
+      toast.error("Failed to update meeting.");
     } finally {
       setLoading(false);
     }

@@ -6,7 +6,8 @@ import { Users, Calendar, CheckCircle, Clock } from "lucide-react";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Trophy, TrendingUp } from "lucide-react";
+import { Trophy, TrendingUp, Activity } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
 
 export default function DashboardPage() {
   const [metrics, setMetrics] = useState({
@@ -17,6 +18,7 @@ export default function DashboardPage() {
   });
   const [recentMeetings, setRecentMeetings] = useState<any[]>([]);
   const [leaderboard, setLeaderboard] = useState<{dept: string, count: number}[]>([]);
+  const [trendData, setTrendData] = useState<{date: string, attendances: number}[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -61,6 +63,30 @@ export default function DashboardPage() {
           .sort((a, b) => b.count - a.count)
           .slice(0, 5);
         setLeaderboard(sortedDepts);
+
+        // Calculate Trend Data (Last 7 Days Attendances)
+        const last7Days = Array.from({length: 7}, (_, i) => {
+          const d = new Date();
+          d.setDate(d.getDate() - (6 - i));
+          return d.toISOString().split("T")[0];
+        });
+        const trendCounts: Record<string, number> = {};
+        last7Days.forEach(d => trendCounts[d] = 0);
+
+        allAttendances.forEach(att => {
+          if (att.checkInTime) {
+            const dateStr = new Date(att.checkInTime.seconds * 1000).toISOString().split("T")[0];
+            if (trendCounts[dateStr] !== undefined) {
+              trendCounts[dateStr]++;
+            }
+          }
+        });
+
+        const formattedTrend = last7Days.map(date => ({
+          date: new Date(date).toLocaleDateString('en-US', { weekday: 'short' }),
+          attendances: trendCounts[date]
+        }));
+        setTrendData(formattedTrend);
 
         // Get 5 recent meetings
         const recent = allMeetings
@@ -140,7 +166,52 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+        <Card className="col-span-4 lg:col-span-4">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-blue-500" />
+              Attendance Trends (Last 7 Days)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <div className="animate-pulse flex space-x-4">
+                  <div className="flex-1 space-y-4 py-1">
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 rounded"></div>
+                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorAttendances" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                    <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} />
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                      cursor={{ stroke: '#2563eb', strokeWidth: 1, strokeDasharray: '4 4' }}
+                    />
+                    <Area type="monotone" dataKey="attendances" stroke="#2563eb" strokeWidth={3} fillOpacity={1} fill="url(#colorAttendances)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="col-span-3 lg:col-span-3">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Trophy className="h-5 w-5 text-yellow-500" />
@@ -182,8 +253,10 @@ export default function DashboardPage() {
             )}
           </CardContent>
         </Card>
-        
-        <Card className="col-span-3">
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="col-span-4">
           <CardHeader>
             <CardTitle>Recent Meetings</CardTitle>
           </CardHeader>

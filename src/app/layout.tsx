@@ -3,6 +3,7 @@ import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "sonner";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="h-full bg-background text-foreground transition-colors duration-200">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AuthProvider>{children}</AuthProvider>
+          <Toaster position="top-center" richColors />
         </ThemeProvider>
       </body>
     </html>
