@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-outfit);
   --color-gold: hsl(43, 60%, 55%);
   --color-navy: hsl(217, 85%, 14%);
   --color-sidebar-ring: var(--sidebar-ring);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getMeetings, Meeting } from "@/lib/services/meetings";
+import { getMeetings, deleteMeeting, Meeting } from "@/lib/services/meetings";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Edit, Trash2, QrCode } from "lucide-react";
@@ -25,6 +25,18 @@ export default function MeetingsPage() {
     };
     fetchMeetings();
   }, []);
+
+  const handleDelete = async (id: string) => {
+    if (confirm("Are you sure you want to delete this meeting?")) {
+      try {
+        await deleteMeeting(id);
+        setMeetings(prev => prev.filter(m => m.id !== id));
+      } catch (error) {
+        console.error("Error deleting meeting:", error);
+        alert("Failed to delete meeting");
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -90,10 +102,17 @@ export default function MeetingsPage() {
                             <QrCode className="h-4 w-4" />
                           </Button>
                         </Link>
-                        <Button variant="outline" size="sm" className="h-8 w-8 p-0">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="h-8 w-8 p-0 text-red-600 hover:text-red-700">
+                        <Link href={`/dashboard/meetings/${meeting.id}/edit`}>
+                          <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                          onClick={() => meeting.id && handleDelete(meeting.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </td>
