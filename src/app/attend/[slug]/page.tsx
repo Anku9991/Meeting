@@ -139,7 +139,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
         <div className="flex justify-center mb-6">
           <Image 
             src="/logo.png" 
-            alt="Pihnexa-Meet Logo" 
+            alt="PihNexa Meet Logo" 
             width={180} 
             height={60} 
             className="object-contain drop-shadow-md"

@@ -32,7 +32,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Organization Settings</CardTitle>
-            <CardDescription>Manage global preferences for Pihnexa-Meet.</CardDescription>
+            <CardDescription>Manage global preferences for PihNexa Meet.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">

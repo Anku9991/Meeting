@@ -36,7 +36,7 @@ const Sidebar = () => {
         <div className="flex items-center justify-center mb-8 pt-4">
         <Image 
           src="/logo.png" 
-          alt="Pihnexa-Meet Logo" 
+          alt="PihNexa Meet Logo" 
           width={180} 
           height={60} 
           className="object-contain dark:bg-white dark:p-2 dark:rounded-xl"

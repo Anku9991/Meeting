@@ -46,7 +46,7 @@ export default function LoginPage() {
           <div className="flex justify-center">
             <Image 
               src="/logo.png" 
-              alt="Pihnexa-Meet Logo" 
+              alt="PihNexa Meet Logo" 
               width={220} 
               height={80} 
               className="object-contain drop-shadow-sm"

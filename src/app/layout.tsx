@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pihnexa-Meet",
+  title: "PihNexa Meet",
   description: "Smart Meeting Attendance & Digital Sign-In Platform",
 };
 
