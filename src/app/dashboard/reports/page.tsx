@@ -11,6 +11,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { EmptyState } from "@/components/ui/custom/empty-state";
 import { LoadingSkeleton } from "@/components/ui/custom/loading-skeleton";
+import { MEDANTA_LOGO_B64 } from "@/lib/medantaLogo";
 
 interface AttendanceRecord {
   id: string;
@@ -70,11 +71,16 @@ export default function ReportsPage() {
     const meeting = selectedMeeting !== "ALL" ? getMeetingDetails(selectedMeeting) : null;
 
     // ── Medanta branding ───────────────────────────────────────────────────
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(200, 50, 50);
-    doc.text("+ medanta", margin, 12);
-    doc.setTextColor(0, 0, 0);
+    try {
+      doc.addImage(MEDANTA_LOGO_B64, "PNG", margin, 7, 35, 10);
+    } catch (e) {
+      console.warn("Failed to add Medanta logo", e);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(200, 50, 50);
+      doc.text("+ medanta", margin, 12);
+      doc.setTextColor(0, 0, 0);
+    }
 
     // ── Attendance Sheet info box ──────────────────────────────────────────
     const boxTop = 17;
