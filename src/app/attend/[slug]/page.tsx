@@ -30,9 +30,6 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
     guestName: "",
     employeeId: "",
     department: "",
-    designation: "",
-    guestPhone: "",
-    guestEmail: "",
   });
 
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
@@ -168,14 +165,25 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-3">
-                <Input required name="guestName" value={formData.guestName} onChange={handleChange} placeholder="Full Name" className="bg-gray-50/50 focus:bg-white transition-colors" />
-                <div className="grid grid-cols-2 gap-3">
-                  <Input required name="employeeId" value={formData.employeeId} onChange={handleChange} placeholder="Employee ID" className="bg-gray-50/50 focus:bg-white transition-colors" />
-                  <Input required name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Employee ID</label>
+                  <Input required name="employeeId" value={formData.employeeId} onChange={handleChange} placeholder="Enter your Employee ID" className="bg-gray-50/50 focus:bg-white transition-colors" />
                 </div>
-                <Input required name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="bg-gray-50/50 focus:bg-white transition-colors" />
-                <Input type="email" required name="guestEmail" value={formData.guestEmail} onChange={handleChange} placeholder="Email Address" className="bg-gray-50/50 focus:bg-white transition-colors" />
-                <Input type="tel" name="guestPhone" value={formData.guestPhone} onChange={handleChange} placeholder="Mobile Number (Optional)" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Full Name (In Capital Letters)</label>
+                  <Input
+                    required
+                    name="guestName"
+                    value={formData.guestName}
+                    onChange={(e) => setFormData({ ...formData, guestName: e.target.value.toUpperCase() })}
+                    placeholder="FULL NAME IN CAPITAL LETTERS"
+                    className="bg-gray-50/50 focus:bg-white transition-colors uppercase placeholder:normal-case"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Department</label>
+                  <Input required name="department" value={formData.department} onChange={handleChange} placeholder="Enter your Department" className="bg-gray-50/50 focus:bg-white transition-colors" />
+                </div>
               </div>
 
 
