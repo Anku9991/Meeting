@@ -136,7 +136,7 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0B2447]/5 to-[#C49A45]/10 py-8 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-md mx-auto space-y-6">
-        <div className="flex flex-col items-center justify-center mb-6 space-y-2">
+        <div className="flex flex-col items-center justify-center mb-6 space-y-1">
           <Image 
             src="/logo.png" 
             alt="PihNexa Meet Logo" 
@@ -145,9 +145,12 @@ export default function AttendancePortal({ params }: { params: Promise<{ slug: s
             className="object-contain drop-shadow-md"
             priority
           />
-          <p className="text-[11px] text-gray-400 font-medium text-center tracking-wide">
-            PihNexa Meet Powered by Pihnexa Technologies
-          </p>
+          <div className="flex flex-col items-center pt-1">
+            <h2 className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">PihNexa Meet</h2>
+            <p className="text-[9px] text-gray-500 font-medium uppercase tracking-widest mt-0.5">
+              Powered by Pihnexa Technologies
+            </p>
+          </div>
         </div>
 
         <Card className="shadow-2xl border-0 overflow-hidden">

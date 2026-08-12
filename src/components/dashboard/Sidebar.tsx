@@ -42,9 +42,12 @@ const Sidebar = () => {
           className="object-contain dark:bg-white dark:p-2 dark:rounded-xl"
           priority
         />
-        <p className="text-[10px] text-gray-400 font-medium text-center tracking-wide">
-          PihNexa Meet Powered by Pihnexa Technologies
-        </p>
+        <div className="flex flex-col items-center pt-1">
+          <h2 className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 dark:from-primary dark:to-blue-400">PihNexa Meet</h2>
+          <p className="text-[9px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest mt-0.5">
+            Powered by Pihnexa Technologies
+          </p>
+        </div>
       </div>
       
       <nav className="flex-1 space-y-2">

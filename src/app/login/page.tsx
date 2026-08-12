@@ -43,7 +43,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md shadow-2xl border-0 overflow-hidden">
         <div className="h-2 w-full bg-gradient-to-r from-[hsl(var(--color-navy))] to-[hsl(var(--color-gold))]"></div>
         <CardHeader className="text-center space-y-4 pt-8">
-          <div className="flex flex-col items-center justify-center space-y-2">
+          <div className="flex flex-col items-center justify-center space-y-1">
             <Image 
               src="/logo.png" 
               alt="PihNexa Meet Logo" 
@@ -52,9 +52,12 @@ export default function LoginPage() {
               className="object-contain drop-shadow-sm"
               priority
             />
-            <p className="text-[11px] text-gray-400 font-medium text-center tracking-wide">
-              PihNexa Meet Powered by Pihnexa Technologies
-            </p>
+            <div className="flex flex-col items-center pt-1">
+              <h2 className="text-base font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">PihNexa Meet</h2>
+              <p className="text-[10px] text-gray-500 font-medium uppercase tracking-widest mt-0.5">
+                Powered by Pihnexa Technologies
+              </p>
+            </div>
           </div>
           <CardDescription className="text-gray-500 font-medium">
             Enter your credentials to access the admin dashboard
