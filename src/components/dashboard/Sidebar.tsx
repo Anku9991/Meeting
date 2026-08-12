@@ -33,7 +33,7 @@ const Sidebar = () => {
         "fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-white dark:bg-card border-r border-gray-200 dark:border-gray-800 shadow-xl md:shadow-sm transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex items-center justify-center mb-8 pt-4">
+        <div className="flex flex-col items-center justify-center mb-8 pt-4 space-y-1">
         <Image 
           src="/logo.png" 
           alt="PihNexa Meet Logo" 
@@ -42,6 +42,9 @@ const Sidebar = () => {
           className="object-contain dark:bg-white dark:p-2 dark:rounded-xl"
           priority
         />
+        <p className="text-[10px] text-gray-400 font-medium text-center tracking-wide">
+          PihNexa Meet Powered by Pihnexa Technologies
+        </p>
       </div>
       
       <nav className="flex-1 space-y-2">
