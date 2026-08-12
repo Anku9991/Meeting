@@ -25,6 +25,7 @@ export default function EditMeetingPage() {
     date: "",
     startTime: "",
     endTime: "",
+    trainerName: "",
     expectedParticipantCount: 0,
     requireLocation: false,
     requirePhoto: false,
@@ -44,6 +45,7 @@ export default function EditMeetingPage() {
             date: meeting.date,
             startTime: meeting.startTime,
             endTime: meeting.endTime,
+            trainerName: meeting.trainerName || "",
             expectedParticipantCount: meeting.expectedParticipantCount,
             requireLocation: meeting.requireLocation,
             requirePhoto: meeting.requirePhoto,
@@ -125,6 +127,11 @@ export default function EditMeetingPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Venue / Link</label>
               <Input required name="venue" value={formData.venue} onChange={handleChange} placeholder="Room 402 or Zoom link" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Trainer's Name</label>
+              <Input name="trainerName" value={formData.trainerName} onChange={handleChange} placeholder="e.g., John Doe" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">

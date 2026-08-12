@@ -93,7 +93,7 @@ export default function ReportsPage() {
       { label: "Venue :", value: meeting?.venue || "" },
       { label: "Timings :", value: meeting ? `${meeting.startTime || ""} - ${meeting.endTime || ""}` : "" },
       { label: "Date :", value: meeting?.date || new Date().toLocaleDateString() },
-      { label: "Trainer's Name :", value: "" },
+      { label: "Trainer's Name :", value: meeting?.trainerName || "" },
     ];
     const boxHeight = 10 + infoLines.length * lineGap;
 

@@ -13,6 +13,7 @@ export interface Meeting {
   organizerId: string;
   expectedParticipantCount: number;
   departmentId?: string;
+  trainerName?: string;
   status: "SCHEDULED" | "ACTIVE" | "COMPLETED" | "CANCELLED";
   qrCodeUrl?: string;
   uniqueUrlSlug: string;
